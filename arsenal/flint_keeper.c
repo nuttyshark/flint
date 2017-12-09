@@ -194,3 +194,17 @@ void flint_memcpy(const void* from, void* to, int len){
         from = (uint8_t*)from + 1;
     }
 }
+
+char flint_memcmp(const void* from, const void* to, int len){
+    for(;len > 3 ;len -= 4){
+		if(*((uint32_t*)to) != *((uint32_t*)from)){
+			return 1;
+		}
+    }
+    while(len--){
+		if(*((uint8_t*)to) != *((uint8_t*)from)){
+			return 1;
+		}
+    }
+	return 0;
+}

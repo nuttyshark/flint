@@ -15,21 +15,21 @@
 
 #define THRD_MAX_NUM 20
 
-typedef int(*t_hytask)(void* arg);
+typedef int(*t_flint_task)(void* arg);
 
 typedef struct{
     char enable;
-    t_hytask task;
+    t_flint_task task;
     void* ctx;
     unsigned int next;
-}t_hythread;
+}t_flint_thread;
 
-void init_hyThread(void);
+void flint_init_thread(void);
 
-t_hythread* start_hyThread(t_hytask task, void* arg);
+t_flint_thread* flint_start_thread(t_flint_task task, void* arg);
 
-void loop_hyThread(void);
+void flint_loop_thread(void);
 
-void free_hyThread(t_hythread*);
+void flint_free_thread(t_flint_thread*);
 
 #endif /* flint_thrd_h */
