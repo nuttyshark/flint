@@ -17,6 +17,7 @@ enum{
 };
 
 void flint_finit(void);
+void flint_pipe_init(void);
 void* flint_fopen(char* path, char mode);
 void flint_fclose(void* file);
 

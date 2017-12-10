@@ -68,21 +68,14 @@ extern t_flint_alloc* keeper_mgr[KEEPER_NUM];
 void _keeper_mgr_push(t_flint_alloc*);
 
 int _flint_init_alloc(t_flint_alloc* alloc, uint8_t* mem, uint32_t* mask, int size, int unit_size);
-
 void *flint_alloc(t_flint_alloc* pool);
-
 void *flint_allocz(t_flint_alloc* pool);
-
 int flint_free(t_flint_alloc* pool, void *ptr);
-
 int flint_gfree(void *ptr);
-
 void flint_memclr(void* mem, uint8_t v, int len);
-
 void flint_memcpy(const void* from, void* to, int len);
-
+char flint_memcmp(const void* from, const void* to, int len);
 void* flint_fifo_preget(t_flint_queue *queue, int pcnt);
-
 int flint_fifo_preset(t_flint_queue *queue, void* sr, int pcnt);
 
 #endif /* flint_keeper_h */

@@ -7,6 +7,7 @@
 //
 
 #include "flint_math.h"
+#include "math.h"
 
 float flint_quake_sqrt(float x)
 {

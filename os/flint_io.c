@@ -8,6 +8,7 @@
 
 #include "flint_io.h"
 #include "flint_type.h"
+#include "flint_str.h"
 #include "flint_keeper.h"
 
 #define MAX_PIPE_POOL 8
@@ -29,7 +30,7 @@ void flint_pipe_reg(t_flint_pipe* file){
 void* flint_pipe_open(char* path, char mode){
     int i;
     for(i=0; i<pipe_pool.max; i++){
-        if(flint_eqstr(path, pipe_pool.ptrs[i])){
+        if(flint_eqstr(path, pipe_pool.ptrs[i]->fname)){
             break;
         }
     }
@@ -41,17 +42,17 @@ void* flint_pipe_open(char* path, char mode){
     return 0;
 }
 
-void flint_pipe_close(void* file){
+void flint_pipe_close(t_flint_pipe* file){
     
 }
 
-char* flint_pipe_gets(char* buf, int max_len, void* file){
+char* flint_pipe_gets(char* buf, int max_len, t_flint_pipe* file){
     t_flint_pipe* f = file;
     char* walker;
     char* rec = buf;
     if(f->tail == 0){
         buf[0] = 0;
-        return buf;
+        return 0;
     }
     if(f->iter > 0){
         flint_memcpy(f->ptr+f->iter, f->ptr, f->tail-f->iter);
@@ -66,9 +67,8 @@ char* flint_pipe_gets(char* buf, int max_len, void* file){
     return buf;
 }
 
-void flint_pipe_puts(char* buf, void* file){
+void flint_pipe_puts(char* buf, t_flint_pipe* file){
     t_flint_pipe* f = file;
-    int ntail;
     for(; *buf; f->tail ++, buf++){
         f->ptr[f->tail] = *buf;
     }
