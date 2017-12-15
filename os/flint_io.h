@@ -53,11 +53,11 @@ typedef struct{
 
 void flint_pipe_reg(t_flint_pipe*);
 
-void* flint_pipe_open(char* path, char mode);
-void flint_pipe_close(void* file);
+t_flint_pipe* flint_pipe_open(char* path, char mode);
+void flint_pipe_close(t_flint_pipe* file);
 
-char* flint_pipe_gets(char* buf, int max_len, void* file);
-void flint_pipe_puts(char* buf, void* file);
+char* flint_pipe_gets(char* buf, int max_len, t_flint_pipe* file);
+void flint_pipe_puts(char* buf, t_flint_pipe* file);
 char f_pipe_eof(void* file);
 
 #endif /* flint_io_h */

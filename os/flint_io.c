@@ -27,7 +27,7 @@ void flint_pipe_reg(t_flint_pipe* file){
     pipe_pool.max ++;
 }
 
-void* flint_pipe_open(char* path, char mode){
+t_flint_pipe* flint_pipe_open(char* path, char mode){
     int i;
     for(i=0; i<pipe_pool.max; i++){
         if(flint_eqstr(path, pipe_pool.ptrs[i]->fname)){
@@ -59,11 +59,15 @@ char* flint_pipe_gets(char* buf, int max_len, t_flint_pipe* file){
         f->tail -= f->iter;
         f->iter = 0;
     }
-    for(walker = f->ptr, rec = buf; *walker != '\n'; walker ++, rec++){
-        *rec = *walker;
-    }
+	if(f->tail){
+		for(walker = f->ptr, rec = buf; *walker != '\n'; walker ++, rec++){
+			*rec = *walker;
+		}
+		f->iter += (1 + rec - buf);
+	}else{
+        f->iter = 0;
+	}
     *rec = '\0';
-    f->iter += (1 + rec - buf);
     return buf;
 }
 

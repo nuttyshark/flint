@@ -142,6 +142,7 @@ int flint_ftoa(float src, char* buf, int precision){
             if(p==0 && precision==0){
                 break;
             }
+            precision --;
         }
     }
     buf[i++] = 0;
